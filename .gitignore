@@ -1,0 +1,9 @@
+bot/configuration/configuration_file.json
+.idea/
+bot/__pycache__/
+bot/configuration/__pycache__/
+bot/handlers/__pycache__/
+bot/handlers/user/__pycache__/
+venv/Lib/
+venv/Scripts/
+venv/pyvenv.cfg
