@@ -7,3 +7,6 @@ bot/handlers/user/__pycache__/
 venv/Lib/
 venv/Scripts/
 venv/pyvenv.cfg
+bot/data/data_message/__pycache__/
+bot/keyboards/__pycache__/
+venv/
