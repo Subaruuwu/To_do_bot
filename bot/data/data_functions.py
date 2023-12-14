@@ -1,5 +1,5 @@
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 
 
@@ -88,10 +88,6 @@ def update_last_task_end_date(user_id, task_name, csv_filename='tasks.csv'):
 
 
 #update_last_task_end_date('id', 'zadacha_2')
-
-
-import pandas as pd
-from datetime import datetime, timedelta
 
 
 def generate_user_summary(user_id, csv_filename='tasks.csv'):
