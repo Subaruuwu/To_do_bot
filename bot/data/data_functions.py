@@ -1,9 +1,45 @@
 import csv
 from datetime import datetime, timedelta
+import os
 import pandas as pd
 
 
-def write_task_to_csv(user_data, csv_filename='tasks.csv'):
+def get_data_patch(file_name):
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    data_file_path = os.path.join(current_dir, file_name)
+    return data_file_path
+
+
+def take_list_of_tasks(user_id):
+    csv_filename = get_data_patch('data_tasks/list_of_tasks.csv')
+    df = pd.read_csv(csv_filename)
+
+    # Убедимся, что имена столбцов не содержат пробелов
+    df.columns = df.columns.str.strip()
+
+    # Фильтрация данных для конкретного пользователя и задачи
+    filtered_df = df[(df['user_id'] == int(user_id))]
+    task_data = filtered_df[['task_name', 'task_time']].values
+    print(task_data)
+    return task_data
+
+take_list_of_tasks(814688732)
+
+def write_tasks_to_list_of_tasks_csv(user_data: list):
+    csv_filename = get_data_patch('data_tasks/list_of_tasks.csv')
+    with open(csv_filename, mode='a', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(user_data)
+
+
+def write_tasks_to_active_tasks_csv(user_id: str):
+    csv_filename = get_data_patch('data_tasks/active_tasks.csv')
+    with open(csv_filename, mode='a', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(user_id)
+
+
+def write_task_to_csv(user_data, csv_filename='data_tasks/tasks_records.csv'):
     with open(csv_filename, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
 
@@ -33,28 +69,10 @@ def write_task_to_csv(user_data, csv_filename='tasks.csv'):
                     # Запись в CSV файл
                     writer.writerow([user_id, task_name, date, start_iso, end_iso])
 
-# Пример использования:
-user_data = {
-    'id': {
-        'zadacha_1': {
-            '20.11.2023': {'start': '2023-11-20T12:00:00', 'end': '2023-11-21T12:00:00'},
-            '21.11.2023': {'start': '2023-11-21T12:00:00', 'end': '2023-11-22T12:00:00'}
-        },
-        'zadacha_2': {
-            '20.11.2024': {'start': '2023-11-20T15:00:00', 'end': '2023-11-21T12:10:00'},
-            '21.11.2025': {'start': '2023-11-21T11:00:00', 'end': '2023-11-22T12:00:00'}
-        }
-    }
-}
-
 #write_task_to_csv(user_data)
 
 
-import pandas as pd
-from datetime import datetime
-
-
-def update_last_task_end_date(user_id, task_name, csv_filename='tasks.csv'):
+def update_last_task_end_date(user_id, task_name, csv_filename='data_tasks/tasks_records.csv'):
     try:
         # Чтение CSV файла в DataFrame
         df = pd.read_csv(csv_filename)
@@ -90,7 +108,7 @@ def update_last_task_end_date(user_id, task_name, csv_filename='tasks.csv'):
 #update_last_task_end_date('id', 'zadacha_2')
 
 
-def generate_user_summary(user_id, csv_filename='tasks.csv'):
+def generate_user_summary(user_id, csv_filename='data_tasks/tasks_records.csv'):
     try:
         # Чтение CSV файла в DataFrame
         df = pd.read_csv(csv_filename)
@@ -134,7 +152,7 @@ def generate_user_summary(user_id, csv_filename='tasks.csv'):
 
 
 # Пример использования:
-generate_user_summary('id')
+#generate_user_summary('id')
 
 def create_task_record(user_id, task_name, date, start_time, end_time):
     task_record = {
@@ -147,7 +165,7 @@ def create_task_record(user_id, task_name, date, start_time, end_time):
 
     # Проверка наличия файла
     try:
-        df = pd.read_csv('tasks.csv')
+        df = pd.read_csv('data_tasks/tasks_records.csv')
     except FileNotFoundError:
         df = pd.DataFrame(columns=['user_id', 'task_name', 'date', 'start_iso', 'end_iso'])
 
@@ -155,7 +173,7 @@ def create_task_record(user_id, task_name, date, start_time, end_time):
     df = pd.concat([df, pd.DataFrame([task_record])], ignore_index=True)
 
     # Запись в CSV файл
-    df.to_csv('tasks.csv', index=False, encoding='utf-8')
+    df.to_csv('tasks_records.csv', index=False, encoding='utf-8')
 
 # Пример использования
-create_task_record('id', 'zadacha_3', '21.11.2025', '2023-11-21T11:00:00', '2023-12-13T23:54:04')
+#create_task_record('id', 'zadacha_3', '21.11.2025', '2023-11-21T11:00:00', '2023-12-13T23:54:04')

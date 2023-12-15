@@ -10,3 +10,4 @@ venv/pyvenv.cfg
 bot/data/data_message/__pycache__/
 bot/keyboards/__pycache__/
 venv/
+bot/data/__pycache__/
