@@ -23,7 +23,7 @@ def take_list_of_tasks(user_id):
     print(task_data)
     return task_data
 
-take_list_of_tasks(814688732)
+#take_list_of_tasks(814688732)
 
 def write_tasks_to_list_of_tasks_csv(user_data: list):
     csv_filename = get_data_patch('data_tasks/list_of_tasks.csv')
@@ -32,11 +32,13 @@ def write_tasks_to_list_of_tasks_csv(user_data: list):
         writer.writerow(user_data)
 
 
-def write_tasks_to_active_tasks_csv(user_id: str):
+def write_tasks_to_active_tasks_csv(user_id: str, task_name: str, task_time: str):
     csv_filename = get_data_patch('data_tasks/active_tasks.csv')
+    start_time = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+    data = [user_id, task_name, task_time, start_time]
     with open(csv_filename, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow(user_id)
+        writer.writerow(data)
 
 
 def write_task_to_csv(user_data, csv_filename='data_tasks/tasks_records.csv'):
@@ -152,7 +154,7 @@ def generate_user_summary(user_id, csv_filename='data_tasks/tasks_records.csv'):
 
 
 # Пример использования:
-#generate_user_summary('id')
+generate_user_summary('id')
 
 def create_task_record(user_id, task_name, date, start_time, end_time):
     task_record = {

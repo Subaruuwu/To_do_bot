@@ -57,7 +57,7 @@ async def choosing_time_for_task(message: Message, state: FSMContext):
     if message.text.lower() == 'да':
         user_data = [message.from_user.id, message_answer['task_name'], message_answer['task_time']]
         write_tasks_to_list_of_tasks_csv(user_data)
-        await message.answer(message_answer["message_answers"][3])
+        await message.answer(message_answer["message_answers"][3])  # todo: add reply markup keyboard
     elif message.text.lower() == 'нет':
         await message.answer('Сочувствуем:(')
     await state.set_state(TaskMakerStates.waiting_for_time_response)

@@ -1,3 +1,3 @@
 from bot.keyboards.main_state import main_choser
 from bot.keyboards.make_new_task_kb import make_yes_no_keyboard
-from bot.keyboards.kb_for_task_handler import make_numbers_of_tasks_keyboard
+from bot.keyboards.kb_for_task_handler import make_numbers_of_tasks_keyboard, make_yes_no_keyboard_for_doing_task
