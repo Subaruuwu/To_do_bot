@@ -19,7 +19,7 @@ async def cmd_start(message: Message):
     await message.answer(message_answer[-1], reply_markup=main_choser())
 
 
-@router.message(Command('help'), F.text.lower() == "инструкция")
+@router.message(F.text.lower() == "инструкция")
 @router.message(Command('help'))
 async def answer(message: Message):
     await message.answer('Инструкция, Даша представь что тут много букав')

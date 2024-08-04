@@ -66,9 +66,9 @@ async def chose_way_for_task(message: Message, state: FSMContext):
         await watch_all_tasks(message, state)
     # todo: Вывести список кнопок из keyboards с выбором   Удалить задачу или приступить к выполнению задачи
 
-'''
+
 @router.message(TaskHandlerStates.begin_doing_task, F.text.in_(['Да, начать выполнение', 'Нет']))
-async def watch_all_tasks(message: Message, state: FSMContext):
+async def begin_doing_task(message: Message, state: FSMContext):
     choose_of_user = message.text.lower()
     if choose_of_user == 'да, начать выполнение':
         data_message = await state.get_data()
@@ -79,8 +79,11 @@ async def watch_all_tasks(message: Message, state: FSMContext):
         # todo: сделать запись в active task
     elif choose_of_user == 'нет':
         # todo: вернуться в главнй стейт
+        await state.clear()
+        await message.answer('Вы отменили выбор задания')
+        await message.answer('Главное меню', reply_markup=main_choser())
         pass
-'''
+
 
 '''
 # todo: приступить к выполнению задачи

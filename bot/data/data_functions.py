@@ -41,7 +41,8 @@ def write_tasks_to_active_tasks_csv(user_id: str, task_name: str, task_time: str
         writer.writerow(data)
 
 
-def write_task_to_csv(user_data, csv_filename='data_tasks/tasks_records.csv'):
+def write_task_to_csv(user_data):
+    csv_filename = get_data_patch('data_tasks/tasks_records.csv')
     with open(csv_filename, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
 
@@ -74,7 +75,8 @@ def write_task_to_csv(user_data, csv_filename='data_tasks/tasks_records.csv'):
 #write_task_to_csv(user_data)
 
 
-def update_last_task_end_date(user_id, task_name, csv_filename='data_tasks/tasks_records.csv'):
+def update_last_task_end_date(user_id, task_name):
+    csv_filename = get_data_patch('data_tasks/tasks_records.csv')
     try:
         # Чтение CSV файла в DataFrame
         df = pd.read_csv(csv_filename)
@@ -110,7 +112,8 @@ def update_last_task_end_date(user_id, task_name, csv_filename='data_tasks/tasks
 #update_last_task_end_date('id', 'zadacha_2')
 
 
-def generate_user_summary(user_id, csv_filename='data_tasks/tasks_records.csv'):
+def generate_user_summary(user_id):
+    csv_filename = get_data_patch('data_tasks/tasks_records.csv')
     try:
         # Чтение CSV файла в DataFrame
         df = pd.read_csv(csv_filename)
